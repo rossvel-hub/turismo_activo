@@ -6,17 +6,50 @@
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
-    $('.validate-form').on('submit',function(){
+    $('.validate-form').on('submit',function(e){
         var check = true;
-
+        var formularioInfo = {
+            'name': $("input[name='name']").val(),
+            'email': $("input[name='email']").val(),
+            'telephone': $("input[name='telephone']").val()
+        };
+        console.log(formularioInfo);
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
             }
-        }
+        };
 
-        return check;
+        /*if(check == false){
+            return check;
+        }*/
+
+        // POST data to the php file
+        $.ajax({ 
+            url: 'mail/mail.php', 
+            data: formularioInfo,
+            type: 'POST',
+            success: function (data) {
+                // For Notification
+                //document.getElementById("sendMailForm").reset();
+                $('.validate-form').trigger("reset");
+                var $alertDiv = $(".mailResponse");
+                $alertDiv.show();
+                $alertDiv.find('.alert').removeClass('alert-danger alert-success');
+                $alertDiv.find('.mailResponseText').text("");
+                if(data.error){
+                    $alertDiv.find('.alert').addClass('alert-danger');
+                    $alertDiv.find('.mailResponseText').text("Error: intente de nuevo mas tarde.");
+                }else{
+                    $alertDiv.find('.alert').addClass('alert-success');
+                    $alertDiv.find('.mailResponseText').text("Sus datos fueron ingresados exitosamente.");
+                }
+            }
+        });
+        e.preventDefault();
+        
+        
     });
 
 
@@ -32,7 +65,7 @@
                 return false;
             }
         }
-        else {
+        else if($(input).attr('name') == 'name') {
             if($(input).val().trim() == ''){
                 return false;
             }
