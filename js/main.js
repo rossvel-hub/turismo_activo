@@ -13,7 +13,7 @@
             'email': $("input[name='email']").val(),
             'telephone': $("input[name='telephone']").val()
         };
-        console.log(formularioInfo);
+
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
@@ -21,9 +21,9 @@
             }
         };
 
-        /*if(check == false){
+        if(check == false){
             return check;
-        }*/
+        }
 
         // POST data to the php file
         $.ajax({ 

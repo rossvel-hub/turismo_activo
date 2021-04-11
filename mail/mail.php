@@ -4,16 +4,15 @@
    // takes the value from variables and Post the data
    $name = $_POST['name'];
    $email = $_POST['email'];
-   $contact = $_POST['contact'];
-   $postmessage = $_POST['message'];  
-   $to = "example@email.com";
-   $subject = "Contact Us";
-   // Email Template
-   $message = "<b>Name : </b>". $name ."<br>";
-   $message .= "<b>Contact Number : </b>".$contact."<br>";
-   $message .= "<b>Email Address : </b>".$email."<br>";
-   $message .= "<b>Message : </b>".$postmessage."<br>";
+   $telephone = $_POST['telephone'];
 
+   $to = "anunciate@turismoactivo.mx";
+   $subject = "Nuevo prospecto de Turismo Activo";
+   // Email Template
+   $message = "<b>Nombre : </b>". $name ."<br>";
+   $message .= "<b>Numero de contacto : </b>".$telephone."<br>";
+   $message .= "<b>Direccion de correo : </b>".$email."<br>";
+   
    $header = "From:"+$email+" \r\n";
    $header .= "MIME-Version: 1.0\r\n";
    $header .= "Content-type: text/html\r\n";
@@ -22,12 +21,12 @@
    if( $retval == true ) {
       echo json_encode(array(
          'success'=> true,
-         'message' => 'Message sent successfully'
+         'message' => 'El mensaje se envio exitosamente'
       ));
    }else {
       echo json_encode(array(
          'error'=> true,
-         'message' => 'Error sending message'
+         'message' => 'Error enviando mensaje'
       ));
    }
 ?>
