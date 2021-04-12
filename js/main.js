@@ -84,7 +84,26 @@
         $(thisAlert).removeClass('alert-validate');
     }
 
-    
+
+    //logica para la animacion de diapositivas
+    $('#slides').each(function(){
+        var delay = 5000;
+        var speed = 1000;
+        var itemSlide = $(this).find('.slides-item');
+        var nowSlide = 0;
+
+        $(itemSlide).hide();
+        $(itemSlide[nowSlide]).show();
+        nowSlide++;
+        if(nowSlide >= itemSlide.length) {nowSlide = 0;}
+
+        setInterval(function(){
+            $(itemSlide).fadeOut(speed);
+            $(itemSlide[nowSlide]).fadeIn(speed);
+            nowSlide++;
+            if(nowSlide >= itemSlide.length) {nowSlide = 0;}
+        },delay);
+    });
     
 
 })(jQuery);
